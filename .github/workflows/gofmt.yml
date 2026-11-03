@@ -1,0 +1,50 @@
+name: gofmt
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.go"
+      - ".github/workflows/gofmt.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One run at a time: quick submits from the extension would otherwise race.
+concurrency:
+  group: gofmt
+  cancel-in-progress: false
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+          cache: false
+
+      - name: Format Go files
+        run: |
+          # A file that doesn't parse makes gofmt exit 2; warn and keep the rest.
+          if ! gofmt -w .; then
+            echo "::warning::gofmt could not parse some files; they were left as-is"
+          fi
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "Already formatted."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "style: gofmt"
+          # The extension may have committed while this job ran.
+          git pull --rebase origin main
+          git push origin HEAD:main

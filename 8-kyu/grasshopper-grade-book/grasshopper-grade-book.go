@@ -1,8 +1,8 @@
 package kata
 
-func GetGrade(a,b,c int) rune {
-    // Code here
-  score := (a + b + c) / 3
+func GetGrade(a, b, c int) rune {
+	// Code here
+	score := (a + b + c) / 3
 
 	switch {
 	case score >= 90 && score <= 100:
@@ -16,5 +16,5 @@ func GetGrade(a,b,c int) rune {
 	default:
 		return 'F'
 	}
-  
+
 }

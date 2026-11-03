@@ -1,7 +1,7 @@
 package kata
 
-func Enough (cap, on, wait int) int {
-  freeSpace := cap - on
+func Enough(cap, on, wait int) int {
+	freeSpace := cap - on
 
 	if freeSpace >= wait {
 		return 0

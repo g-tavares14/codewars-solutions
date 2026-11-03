@@ -11,7 +11,7 @@ on:
 permissions:
   contents: write
 
-# One run at a time: quick submits from the extension would otherwise race.
+# Uma execução por vez: senão, submits seguidos da extensão disputariam a branch.
 concurrency:
   group: gofmt
   cancel-in-progress: false
@@ -31,20 +31,20 @@ jobs:
 
       - name: Format Go files
         run: |
-          # A file that doesn't parse makes gofmt exit 2; warn and keep the rest.
+          # Um arquivo com erro de sintaxe faz o gofmt sair com 2; avisa e formata o resto.
           if ! gofmt -w .; then
-            echo "::warning::gofmt could not parse some files; they were left as-is"
+            echo "::warning::o gofmt não conseguiu ler alguns arquivos; eles ficaram como estavam"
           fi
 
       - name: Commit changes
         run: |
           if git diff --quiet; then
-            echo "Already formatted."
+            echo "Tudo já está formatado."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -am "style: gofmt"
-          # The extension may have committed while this job ran.
+          # A extensão pode ter feito um commit enquanto este job rodava.
           git pull --rebase origin main
           git push origin HEAD:main

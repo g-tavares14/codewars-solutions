@@ -1,6 +1,5 @@
 package kata
 
-
 func CountBy(x, n int) []int {
 	var result []int
 

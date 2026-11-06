@@ -1,6 +1,5 @@
 package kata
 
-
 func FakeBin(x string) string {
 	var binaryString string
 

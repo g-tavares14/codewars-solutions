@@ -1,6 +1,5 @@
 package kata
 
-
 func FindEvenIndex(arr []int) int {
 	total := 0
 	for _, v := range arr {

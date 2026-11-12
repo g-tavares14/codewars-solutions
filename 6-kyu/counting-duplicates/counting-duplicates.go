@@ -9,7 +9,7 @@ func duplicate_count(s1 string) int {
 	for _, char := range stringLower {
 		count[char]++
 	}
-	
+
 	duplicate := 0
 
 	for _, value := range count {
@@ -20,5 +20,3 @@ func duplicate_count(s1 string) int {
 
 	return duplicate
 }
-
-

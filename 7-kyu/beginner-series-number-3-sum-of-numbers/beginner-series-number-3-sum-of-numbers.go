@@ -1,6 +1,5 @@
 package kata
 
-
 func GetSum(a, b int) int {
 	lo, hi := a, b
 	if lo > hi {

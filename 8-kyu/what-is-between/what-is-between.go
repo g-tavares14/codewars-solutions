@@ -1,6 +1,5 @@
 package kata
 
-
 func Between(a, b int) []int {
 	var result []int
 

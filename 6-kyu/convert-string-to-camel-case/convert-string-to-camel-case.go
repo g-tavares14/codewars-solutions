@@ -1,7 +1,7 @@
 package kata
 
-import (	
-  "regexp"
+import (
+	"regexp"
 	"strings"
 )
 
